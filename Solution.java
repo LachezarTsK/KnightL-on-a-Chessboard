@@ -15,7 +15,7 @@ public class Solution {
 
 	/**
 	 * The method gets each path with minimum moves, for each possible size of 
-   * the L-shaped move, from chess board position (1,1) to position (n, n),
+	 * the L-shaped move, from chess board position (1,1) to position (n, n),
 	 * n=chessboardSide.
 	 * 
 	 * In order to avoid a second breadth first search for L-shapes with
@@ -54,8 +54,8 @@ public class Solution {
 	 * n=chessboardSide. Each move has to be L-shaped, in accordance to the current
 	 * vertical and horizontal legs.
 	 * 
-	 * @return An integer, representing the minimum number of moves. If the position can
-	 *         not be reached with the current L-shaped moves, it returns "-1".
+	 * @return An integer, representing the minimum number of moves. If the position
+	 *         can not be reached with the current L-shaped moves, it returns "-1".
 	 */
 	private static int searchPath_minimumNumberOfMoves(int legOne, int legTwo) {
 		LinkedList<Position> chessboardPositions = new LinkedList<Position>();
@@ -123,18 +123,20 @@ public class Solution {
 			}
 
 			/**
-			 * If legOne = legTwo, it does not matter whether logOne or legTwo is moved
-			 * first. Thus, the following four moves arrive at the same positions as the
-			 * preceding four.
+			 * If legOne = legTwo, it does not matter whether legOne or legTwo is moved
+			 * first. Thus, the following four moves arrive at the same positions as 
+			 * the preceding four.
 			 * 
 			 * However, implementing one more if-statement for legOne = legTwo in order to
-			 * avoid the following four if-statements will not streamline the code. This is
-			 * because the cases of legOne = legTwo grow linearly, and are equal to the
-			 * side of the chess board.
+			 * avoid the following four if-statements will not streamline the code.
 			 * 
-			 * On the other hand, the cases of legOne != legTwo grow exponentially, and are equal to 
-       * the side of the chess board to the power of two, minus the side of the chess board
-			 * (subtracting the cases of legOne = legTwo) i.e. chessboardSide*chessboardSide-chessboardSide.
+			 * This is because the diagonal grows linearly and is equal to chessboardSide.
+			 * On the other hand, the cases when legOne != legTwo (and for which breadth
+			 * first search is initiated) grow exponentially and are equal to total
+			 * positions on the chess board minus the length of the diagonal. And the result
+			 * of this, is in turn divided by 2, since breadth first search is not initiated
+			 * when current row is greater than the current column. Thus:
+			 * (chessboardSide*chessboardSide-chessboardSide)/2.
 			 */
 
 			/**
@@ -189,8 +191,8 @@ public class Solution {
 	}
 
 	/**
-	 * The method checks whether the neighboring row and column are within 
-   * the boundaries of the chess board.
+	 * The method checks whether the neighboring row and column are within the
+	 * boundaries of the chess board.
 	 * 
 	 * @return true, if they are within the boundaries. Otherwise, returns false.
 	 */
